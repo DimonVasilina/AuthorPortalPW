@@ -41,9 +41,6 @@ public class SignIn {
 
             Assertions.assertTrue(currenURL.equals("https://bnpro.ovh/dashboard"), "This page is not being expected");
 
-            sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 
