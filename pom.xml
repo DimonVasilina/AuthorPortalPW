@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>my-first-playwright-test</artifactId>
+    <artifactId>AuthorPortalPW</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -42,9 +42,23 @@
         <dependency>
             <groupId>com.microsoft.playwright</groupId>
             <artifactId>playwright</artifactId>
-            <version>1.49.0</version>
-            <scope>compile</scope>
+            <version>1.43.0</version>
         </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.2</version>
+                <configuration>
+                    <parallel>methods</parallel>  <!-- Runs tests in parallel -->
+                    <threadCount>3</threadCount>  <!-- Number of parallel threads -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

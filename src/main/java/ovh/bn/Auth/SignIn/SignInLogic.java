@@ -14,21 +14,23 @@ import static java.lang.Thread.sleep;
 
 public class SignInLogic {
 
-    @Test
-    void signInAsExistUser() throws InterruptedException {
+    private final Page page;
+    public SignInLogic (Page page){
+        this.page = page;
+    }
 
-        Playwright playwright = Playwright.create();
-        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-        Page page = browser.newPage(new Browser.NewPageOptions()
-                .setViewportSize(390,844)
-                .setColorScheme(ColorScheme.DARK));
+    public void signInAsExistUser(String username, String password)  {
+
+//        String username = "without@boo.ks";
+//        String userPassword = "12345678";
 
         page.navigate("https://bnpro.ovh/");
-        sleep (5000);
+        page.locator("//a[@type='button']/*[text()[contains(., 'Log in')]]").click();
+        page.locator("//input[@id='email']").fill(username);
+        page.locator("//input[@id='password']").fill(password);
+        page.locator("//button[@type='submit']").first().click();
 
-
-        page.close();
-        browser.close();
+        page.waitForURL("https://bnpro.ovh/dashboard");
 
     }
 

@@ -1,33 +1,27 @@
 package Authorization;
 
 import com.microsoft.playwright.*;
-import com.microsoft.playwright.options.ColorScheme;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.testng.annotations.BeforeClass;
-import ovh.bn.Utils.InitialBrowser;
-
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
-
-import static java.lang.Thread.sleep;
+import java.util.Arrays;
 
 public class SignIn {
-
 
     @Test
     public void SignInAsExistUser() {
 
-        String username = "ukraine@booknet.com";
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch(
+                new BrowserType.LaunchOptions()
+                        .setHeadless(false)
+                             );
+        BrowserContext context = browser.newContext(new Browser.NewContextOptions()
+                .setGeolocation(41.890221, 12.492348)
+                .setPermissions(Arrays.asList("geolocation")));
+        Page page = browser.newPage();
+
+        String username = "without@boo.ks";
         String userPassword = "12345678";
-
-
-        try (Playwright playwright = Playwright.create()){
-            Page page = playwright.chromium()
-                    .launch(new BrowserType.LaunchOptions().setHeadless(false))
-                    .newPage(new Browser.NewPageOptions()
-                            .setViewportSize(430, 932)
-                            .setColorScheme(ColorScheme.DARK));
 
             page.navigate("https://bnpro.ovh/");
             page.locator("//a[@type='button']/*[text()[contains(., 'Log in')]]").click();
@@ -44,4 +38,4 @@ public class SignIn {
         }
     }
 
-}
+
