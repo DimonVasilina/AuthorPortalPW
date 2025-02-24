@@ -1,4 +1,4 @@
-package ovh.bn.Auth.SignIn;
+package ovh.bn.Pages.Auth.SignIn;
 
 
 import com.microsoft.playwright.Browser;

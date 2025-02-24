@@ -1,4 +1,4 @@
-package ovh.bn.Utils;
+package Utils.InitialBrowser;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.ColorScheme;
@@ -9,7 +9,7 @@ public class InitialBrowser {
 
     Playwright playwright;
     Browser browser;
-    BrowserContext browserContext;
+    static BrowserContext browserContext;
     Page page;
     String url = "https://bnpro.ovh/";
 

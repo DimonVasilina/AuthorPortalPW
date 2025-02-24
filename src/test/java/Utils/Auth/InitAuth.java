@@ -1,28 +1,29 @@
-package Utils;
+package Utils.Auth;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import ovh.bn.Auth.SignIn.SignInLogic;
+import ovh.bn.Pages.Auth.SignIn.SignInLogic;
 
-public class SignInAsAuthor {
+public class InitAuth {
 
     protected static Playwright playwright;
     protected static Browser browser;
     protected static BrowserContext browserContext;
-    protected static Page page;
+    protected Page page;
 
-    @BeforeAll
-    static void loginAsAuthor () {
+    protected static String baseUrl = "https://bnpro.ovh";
+
+    protected static void loginAsAuthor (String username, String password) {
 
         playwright = Playwright.create();
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
-        browserContext = browser.newContext();
+        browserContext = browser.newContext(new Browser.NewContextOptions()
+                .setBaseURL(baseUrl));
 
                 // Perform login once
                 Page loginPage = browserContext.newPage();
                 SignInLogic login = new SignInLogic(loginPage);
-                login.signInAsExistUser ("without@boo.ks", "12345678");
+                login.signInAsExistUser (username, password);
 
                 // Close login page but keep session
                 loginPage.close();
@@ -30,6 +31,8 @@ public class SignInAsAuthor {
 
     @AfterAll
     static void tearDownOnce() {
+
+
                 browser.close();
                 playwright.close();
     }
